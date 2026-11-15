@@ -1,5 +1,9 @@
-from typing import Optional
-from sqlmodel import Field, SQLModel
+from typing import TYPE_CHECKING, Optional
+from sqlmodel import Field, Relationship, SQLModel
+
+# Solo para que el editor conozca el tipo, sin importar el módulo de verdad (evita importaciones circulares)
+if TYPE_CHECKING:
+    from app.modules.productos.models import Producto
 
 
 class Categoria(SQLModel, table=True):
@@ -7,3 +11,5 @@ class Categoria(SQLModel, table=True):
     nombre: str = Field(max_length=100, unique=True)
     descripcion: Optional[str] = None
     activo: bool = Field(default=True)
+
+    productos: list["Producto"] = Relationship(back_populates="categoria")
