@@ -1,7 +1,10 @@
 from datetime import datetime
-from typing import Optional
-from sqlmodel import Field, SQLModel
+from typing import TYPE_CHECKING, Optional
+from sqlmodel import Field, Relationship, SQLModel
 from app.core.fechas import ahora
+
+if TYPE_CHECKING:
+    from app.modules.pedidos.models import Pedido
 
 
 class Usuario(SQLModel, table=True):
@@ -13,3 +16,5 @@ class Usuario(SQLModel, table=True):
     role: str = Field(default="user")  # "user" o "admin"
     disabled: bool = Field(default=False)
     created_at: datetime = Field(default_factory=ahora)
+
+    pedidos: list["Pedido"] = Relationship(back_populates="usuario")

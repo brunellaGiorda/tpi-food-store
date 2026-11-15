@@ -3,6 +3,7 @@ from sqlmodel import Field, Relationship, SQLModel
 
 if TYPE_CHECKING:
     from app.modules.categorias.models import Categoria
+    from app.modules.pedidos.models import DetallePedido
 
 
 class Producto(SQLModel, table=True):
@@ -17,3 +18,4 @@ class Producto(SQLModel, table=True):
     activo: bool = Field(default=True)
 
     categoria: Optional["Categoria"] = Relationship(back_populates="productos")
+    detalles: list["DetallePedido"] = Relationship(back_populates="producto")

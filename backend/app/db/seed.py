@@ -1,5 +1,9 @@
 from app.core.database import create_all_tables
 from app.core.security import hash_password
+# Se importan todos los modelos para que SQLModel pueda armar las relaciones entre ellos
+from app.modules.categorias.models import Categoria
+from app.modules.pedidos.models import Pedido
+from app.modules.productos.models import Producto
 from app.modules.usuarios.models import Usuario
 from app.modules.usuarios.unit_of_work import UsuarioUnitOfWork
 
