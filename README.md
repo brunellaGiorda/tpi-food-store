@@ -55,5 +55,7 @@ Los clientes se crean desde el registro.
 
 - Se usa Python 3.14 con SQLModel 0.0.48, que es compatible con esa versión de Python.
 - `DATABASE_URL` tiene que empezar con `postgresql+psycopg2://`. Si empieza solo con `postgresql://`, SQLModel busca otro driver (`psycopg` 3) que no está instalado.
+- Las tablas toman el nombre de la clase en minúscula, que es lo que hace SQLModel por defecto (por ejemplo, `DetallePedido` → `detallepedido`). Si hiciera falta otro nombre, se puede definir en el modelo con `__tablename__ = "detalle_pedido"`.
+- Los `# type: ignore[...]` solo ocultan avisos de VS Code que no son errores reales (por ejemplo, que un `id` podría ser `None` o que `Settings()` no recibe argumentos porque los lee del `.env`). No cambian cómo funciona el código.
 - La baja lógica se resuelve en el repositorio base: `delete` pone `activo = False`, y `get_by_id` y `get_all` ignoran los registros dados de baja.
 - En el registro se sacan los espacios al principio y al final de los textos (`str_strip_whitespace`), para que `" maria "` y `"maria"` no cuenten como usuarios distintos.

@@ -1,7 +1,6 @@
 from typing import TYPE_CHECKING, Optional
 from sqlmodel import Field, Relationship, SQLModel
 
-# Solo para que el editor conozca el tipo, sin importar el módulo de verdad (evita importaciones circulares)
 if TYPE_CHECKING:
     from app.modules.productos.models import Producto
 
