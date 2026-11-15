@@ -1,9 +1,19 @@
+from datetime import datetime
 from typing import Optional
+from app.core.fechas import ahora
 from app.modules.productos.service import ProductoNoEncontrado
 from app.modules.usuarios.schemas import UserPublic
 from .models import DetallePedido, EstadoPedido, Pedido
-from .schemas import PedidoCreate, PedidoRead, PedidosPaginados
+from .schemas import PedidoCreate, PedidoRead, PedidosPaginados, ResumenPedidos
 from .unit_of_work import PedidoUnitOfWork
+
+# Máquina de estados: a qué estados se puede pasar desde cada uno. ENTREGADO y CANCELADO son terminales.
+TRANSICIONES = {
+    EstadoPedido.PENDIENTE: [EstadoPedido.EN_PREPARACION, EstadoPedido.CANCELADO],
+    EstadoPedido.EN_PREPARACION: [EstadoPedido.ENTREGADO, EstadoPedido.CANCELADO],
+    EstadoPedido.ENTREGADO: [],
+    EstadoPedido.CANCELADO: [],
+}
 
 
 class PedidoNoEncontrado(Exception):
@@ -23,6 +33,10 @@ class ProductoNoDisponible(Exception):
 
 
 class StockInsuficiente(Exception):
+    pass
+
+
+class TransicionInvalida(Exception):
     pass
 
 
@@ -59,7 +73,7 @@ class PedidoService:
                 producto.stock -= item.cantidad
                 subtotal = producto.precio_base * item.cantidad
                 pedido.items.append(DetallePedido(
-                    producto_id=producto.id,
+                    producto_id=item.producto_id,
                     cantidad=item.cantidad,
                     nombre_producto=producto.nombre,
                     precio_unitario=producto.precio_base,
@@ -87,6 +101,50 @@ class PedidoService:
     def obtener(self, id: int, usuario: UserPublic) -> PedidoRead:
         with self.uow as uow:
             return PedidoRead.model_validate(self._buscar(uow, id, usuario))
+
+    # Admin: avanza o cancela según la máquina de estados
+    def cambiar_estado(self, id: int, nuevo_estado: EstadoPedido, usuario: UserPublic) -> PedidoRead:
+        with self.uow as uow:
+            pedido = self._buscar(uow, id, usuario)
+            self._aplicar_transicion(pedido, nuevo_estado)
+            pedido = uow.pedidos.add(pedido)
+            return PedidoRead.model_validate(pedido)
+
+    # Cliente: solo cancela sus propios pedidos y solo desde PENDIENTE (RN-04)
+    def cancelar(self, id: int, usuario: UserPublic) -> PedidoRead:
+        with self.uow as uow:
+            pedido = uow.pedidos.get_by_id(id)
+            if not pedido:
+                raise PedidoNoEncontrado("Pedido no encontrado")
+            if pedido.usuario_id != usuario.id:
+                raise PedidoAjeno("El pedido es de otro usuario")
+            if pedido.estado != EstadoPedido.PENDIENTE:
+                raise TransicionInvalida("Solo se pueden cancelar pedidos pendientes")
+            self._aplicar_transicion(pedido, EstadoPedido.CANCELADO)
+            pedido = uow.pedidos.add(pedido)
+            return PedidoRead.model_validate(pedido)
+
+    def resumen(self) -> ResumenPedidos:
+        with self.uow as uow:
+            inicio_de_hoy = datetime.now().astimezone().replace(hour=0, minute=0, second=0, microsecond=0)
+            return ResumenPedidos(
+                pendientes=uow.pedidos.count_by_estado(EstadoPedido.PENDIENTE),
+                en_preparacion=uow.pedidos.count_by_estado(EstadoPedido.EN_PREPARACION),
+                entregados=uow.pedidos.count_by_estado(EstadoPedido.ENTREGADO),
+                cancelados=uow.pedidos.count_by_estado(EstadoPedido.CANCELADO),
+                pedidos_hoy=uow.pedidos.count_desde(inicio_de_hoy),
+                ingresos_entregados=uow.pedidos.sum_total_by_estado(EstadoPedido.ENTREGADO),
+            )
+
+    # RN-02 y RN-03: valida la transición antes de tocar el pedido; al cancelar devuelve el stock
+    def _aplicar_transicion(self, pedido: Pedido, nuevo_estado: EstadoPedido) -> None:
+        if nuevo_estado not in TRANSICIONES[pedido.estado]:
+            raise TransicionInvalida(f"No se puede pasar de {pedido.estado.value} a {nuevo_estado.value}")
+        if nuevo_estado == EstadoPedido.CANCELADO:
+            for item in pedido.items:
+                item.producto.stock += item.cantidad  # type: ignore[union-attr]
+        pedido.estado = nuevo_estado
+        pedido.updated_at = ahora()
 
     # Busca el pedido y controla que sea del usuario (salvo que sea admin)
     def _buscar(self, uow: PedidoUnitOfWork, id: int, usuario: UserPublic) -> Pedido:
