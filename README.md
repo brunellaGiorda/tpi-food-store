@@ -1,1 +1,10 @@
 # tpi-food-store
+
+Trabajo Práctico Integrador de Programación IV: sistema de pedidos de comida con backend FastAPI + SQLModel y frontend React + TypeScript.
+
+## Decisiones
+
+### Backend
+
+- Se usa Python 3.14 con SQLModel 0.0.48, que es compatible con esa versión de Python.
+- `DATABASE_URL` tiene que empezar con `postgresql+psycopg2://`. Si empieza solo con `postgresql://`, SQLModel busca otro driver (`psycopg` 3) que no está instalado.
