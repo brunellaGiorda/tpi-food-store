@@ -1,0 +1,11 @@
+# Python
+.venv/
+__pycache__/
+*.db
+
+# Node
+node_modules/
+dist/
+
+# Variables de entorno (los .env.example sí se suben)
+.env
