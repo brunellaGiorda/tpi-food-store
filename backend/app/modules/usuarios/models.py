@@ -11,5 +11,5 @@ class Usuario(SQLModel, table=True):
     email: str = Field(max_length=254, unique=True, index=True)
     hashed_password: str
     role: str = Field(default="user")  # "user" o "admin"
-    disabled: bool = Field(default=False)  # baja lógica del usuario
+    disabled: bool = Field(default=False)
     created_at: datetime = Field(default_factory=ahora)
