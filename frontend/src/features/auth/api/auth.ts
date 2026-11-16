@@ -1,5 +1,5 @@
 import { axiosInstance } from '../../../shared/api/axiosInstance'
-import type { LoginInput, MensajeRespuesta, Usuario } from '../types/auth'
+import type { LoginInput, MensajeRespuesta, RegisterInput, Usuario } from '../types/auth'
 
 // El back recibe el login como datos de formulario, no como JSON.
 // URLSearchParams los arma con ese formato: username=admin&password=...
@@ -9,3 +9,5 @@ export const login = ({ username, password }: LoginInput) =>
 export const obtenerUsuarioActual = () => axiosInstance.get<Usuario>('/auth/me').then((r) => r.data)
 
 export const logout = () => axiosInstance.post<MensajeRespuesta>('/auth/logout').then((r) => r.data)
+
+export const registrar = (datos: RegisterInput) => axiosInstance.post<Usuario>('/auth/register', datos).then((r) => r.data)

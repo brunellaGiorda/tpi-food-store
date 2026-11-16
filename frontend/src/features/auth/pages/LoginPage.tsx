@@ -1,17 +1,19 @@
 import { useMutation } from '@tanstack/react-query'
 import { useForm } from '@tanstack/react-form'
-import { Link, Navigate } from 'react-router-dom'
+import { Link, Navigate, useLocation } from 'react-router-dom'
 import { handleApiError } from '../../../shared/api/handleApiError'
 import Button from '../../../shared/ui/Button'
 import Input from '../../../shared/ui/Input'
+import { obligatorio } from '../../../shared/utils/validaciones'
 import { useAuthStore } from '../../../store/authStore'
 import type { LoginInput } from '../types/auth'
-
-const obligatorio = ({ value }: { value: string }) => (value.trim() ? undefined : 'Campo obligatorio')
 
 function LoginPage() {
   const usuario = useAuthStore((state) => state.usuario)
   const login = useAuthStore((state) => state.login)
+  // RegisterPage manda { registrado: true } al redirigir acá
+  const location = useLocation()
+  const recienRegistrado = (location.state as { registrado?: boolean } | null)?.registrado
 
   // Si el login falla, ingresar.error tiene el error y se muestra abajo del formulario
   const ingresar = useMutation({
@@ -31,6 +33,10 @@ function LoginPage() {
   return (
     <section className="mx-auto flex max-w-sm flex-col gap-4 rounded bg-white p-6 shadow">
       <h1 className="text-2xl font-bold text-gray-800">Iniciar sesión</h1>
+
+      {recienRegistrado && (
+        <p className="rounded bg-green-100 px-3 py-2 text-sm text-green-700">Cuenta creada. Ya podés iniciar sesión.</p>
+      )}
 
       <form
         className="flex flex-col gap-3"

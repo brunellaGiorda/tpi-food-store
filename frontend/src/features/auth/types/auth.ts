@@ -24,6 +24,13 @@ export interface LoginInput {
   password: string
 }
 
+export interface RegisterInput {
+  username: string
+  full_name: string
+  email: string
+  password: string
+}
+
 // Respuesta de /auth/token y /auth/logout. El token no viene acá: viaja en la cookie.
 export interface MensajeRespuesta {
   message: string
