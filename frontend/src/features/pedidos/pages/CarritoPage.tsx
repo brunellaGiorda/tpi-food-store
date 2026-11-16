@@ -1,0 +1,5 @@
+function CarritoPage() {
+  return <h1 className="text-2xl font-bold text-gray-800">Carrito</h1>
+}
+
+export default CarritoPage
