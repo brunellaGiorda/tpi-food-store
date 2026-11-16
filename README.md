@@ -59,3 +59,7 @@ Los clientes se crean desde el registro.
 - Los `# type: ignore[...]` solo ocultan avisos de VS Code que no son errores reales (por ejemplo, que un `id` podría ser `None` o que `Settings()` no recibe argumentos porque los lee del `.env`). No cambian cómo funciona el código.
 - La baja lógica se resuelve en el repositorio base: `delete` pone `activo = False`, y `get_by_id` y `get_all` ignoran los registros dados de baja.
 - En el registro se sacan los espacios al principio y al final de los textos (`str_strip_whitespace`), para que `" maria "` y `"maria"` no cuenten como usuarios distintos.
+
+### Frontend
+
+- `src/vite-env.d.ts` declara `VITE_API_URL` como `string`. Sin ese archivo, Vite toma las variables del `.env` como `any`.
