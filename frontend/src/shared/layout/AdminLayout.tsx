@@ -13,6 +13,7 @@ function AdminLayout() {
         <NavLink to="/admin/categorias" className={estiloLink}>Categorías</NavLink>
         <NavLink to="/admin/productos" className={estiloLink}>Productos</NavLink>
         <NavLink to="/admin/pedidos" className={estiloLink}>Pedidos</NavLink>
+        <NavLink to="/admin/usuarios" className={estiloLink}>Usuarios</NavLink>
       </nav>
       <Outlet />
     </div>
