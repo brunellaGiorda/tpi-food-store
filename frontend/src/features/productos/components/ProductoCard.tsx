@@ -1,8 +1,20 @@
+import { useState } from 'react'
+import { useCartStore } from '../../../store/cartStore'
+import Button from '../../../shared/ui/Button'
 import Card from '../../../shared/ui/Card'
 import type { Producto } from '../types/producto'
 
 function ProductoCard({ producto }: { producto: Producto }) {
+  const agregar = useCartStore((state) => state.agregar)
+  const [agregado, setAgregado] = useState(false)
   const sePuedeComprar = producto.disponible && producto.stock > 0
+
+  // Agrega el producto y el botón dice "¡Agregado!" por un segundo
+  function agregarAlCarrito() {
+    agregar({ producto_id: producto.id, nombre: producto.nombre, precio_unitario: producto.precio_base })
+    setAgregado(true)
+    setTimeout(() => setAgregado(false), 1000)
+  }
 
   return (
     <Card className="flex flex-col gap-2">
@@ -20,6 +32,10 @@ function ProductoCard({ producto }: { producto: Producto }) {
         <span className="text-lg font-bold text-gray-800">$ {producto.precio_base.toLocaleString('es-AR')}</span>
         {!sePuedeComprar && <span className="text-xs text-red-600">No disponible</span>}
       </div>
+
+      <Button type="button" disabled={!sePuedeComprar} onClick={agregarAlCarrito}>
+        {agregado ? '¡Agregado!' : 'Agregar al carrito'}
+      </Button>
     </Card>
   )
 }

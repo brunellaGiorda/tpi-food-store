@@ -1,6 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../../store/authStore'
+import { useCartStore } from '../../store/cartStore'
 
 // El link de la página actual se ve subrayado
 const estiloLink = ({ isActive }: { isActive: boolean }) => (isActive ? 'underline' : 'text-gray-300 hover:text-white')
@@ -8,6 +9,8 @@ const estiloLink = ({ isActive }: { isActive: boolean }) => (isActive ? 'underli
 function Navbar() {
   const usuario = useAuthStore((state) => state.usuario)
   const logout = useAuthStore((state) => state.logout)
+  // Suma de las cantidades, para ver que se agregó algo al carrito
+  const cantidadEnCarrito = useCartStore((state) => state.items.reduce((suma, i) => suma + i.cantidad, 0))
   const queryClient = useQueryClient()
   const navigate = useNavigate()
 
@@ -22,7 +25,7 @@ function Navbar() {
       <div className="mx-auto flex max-w-5xl items-center gap-6 p-4">
         <span className="font-bold">Food Store</span>
         <NavLink to="/" end className={estiloLink}>Catálogo</NavLink>
-        <NavLink to="/carrito" className={estiloLink}>Carrito</NavLink>
+        <NavLink to="/carrito" className={estiloLink}>Carrito ({cantidadEnCarrito})</NavLink>
 
         <div className="ml-auto flex items-center gap-4 text-sm">
           {usuario ? (
