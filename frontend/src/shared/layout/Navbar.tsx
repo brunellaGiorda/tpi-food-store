@@ -27,6 +27,8 @@ function Navbar() {
         <NavLink to="/" end className={estiloLink}>Catálogo</NavLink>
         <NavLink to="/carrito" className={estiloLink}>Carrito ({cantidadEnCarrito})</NavLink>
         {usuario && <NavLink to="/mis-pedidos" className={estiloLink}>Mis pedidos</NavLink>}
+        {/* El panel solo se muestra al admin (igual el back controla el rol) */}
+        {usuario?.role === 'admin' && <NavLink to="/admin/resumen" className={estiloLink}>Panel</NavLink>}
 
         <div className="ml-auto flex items-center gap-4 text-sm">
           {usuario ? (

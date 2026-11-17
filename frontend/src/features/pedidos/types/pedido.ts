@@ -38,6 +38,16 @@ export interface FiltrosPedidos {
   estado?: EstadoPedido
 }
 
+// Respuesta de GET /pedidos/resumen (ResumenPedidos), para el panel del admin
+export interface ResumenPedidos {
+  pendientes: number
+  en_preparacion: number
+  entregados: number
+  cancelados: number
+  pedidos_hoy: number
+  ingresos_entregados: number
+}
+
 // Lo que se manda en POST /pedidos (PedidoCreate)
 export interface PedidoInput {
   items: { producto_id: number; cantidad: number }[]
