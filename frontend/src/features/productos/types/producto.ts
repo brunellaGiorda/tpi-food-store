@@ -20,6 +20,24 @@ export interface ProductosPaginados {
   items: Producto[]
 }
 
+// Lo que se manda en POST y PUT /productos (ProductoCreate y ProductoUpdate)
+export interface ProductoInput {
+  nombre: string
+  descripcion: string | null
+  precio_base: number
+  imagen_url: string | null
+  categoria_id: number
+  // Al editar no se mandan: el stock se cambia aparte con PATCH /productos/{id}/stock
+  stock?: number
+  disponible?: boolean
+}
+
+// Lo que se manda en PATCH /productos/{id}/stock (ProductoStockUpdate)
+export interface StockInput {
+  stock: number
+  disponible: boolean
+}
+
 // Parámetros que acepta GET /productos
 export interface FiltrosProductos {
   skip: number

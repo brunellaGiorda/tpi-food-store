@@ -11,6 +11,7 @@ function AdminLayout() {
       <nav className="flex flex-wrap gap-2 rounded bg-white p-2 shadow">
         <NavLink to="/admin/resumen" className={estiloLink}>Resumen</NavLink>
         <NavLink to="/admin/categorias" className={estiloLink}>Categorías</NavLink>
+        <NavLink to="/admin/productos" className={estiloLink}>Productos</NavLink>
       </nav>
       <Outlet />
     </div>

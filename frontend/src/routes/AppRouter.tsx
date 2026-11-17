@@ -7,6 +7,7 @@ import AdminResumenPage from '../features/pedidos/pages/AdminResumenPage'
 import CarritoPage from '../features/pedidos/pages/CarritoPage'
 import CheckoutPage from '../features/pedidos/pages/CheckoutPage'
 import MisPedidosPage from '../features/pedidos/pages/MisPedidosPage'
+import AdminProductosPage from '../features/productos/pages/AdminProductosPage'
 import CatalogoPage from '../features/productos/pages/CatalogoPage'
 import AdminLayout from '../shared/layout/AdminLayout'
 import MainLayout from '../shared/layout/MainLayout'
@@ -35,6 +36,7 @@ function AppRouter() {
             <Route element={<AdminLayout />}>
               <Route path="/admin/resumen" element={<AdminResumenPage />} />
               <Route path="/admin/categorias" element={<AdminCategoriasPage />} />
+              <Route path="/admin/productos" element={<AdminProductosPage />} />
             </Route>
           </Route>
         </Route>
