@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom'
 import EstadoVacio from '../../../shared/components/EstadoVacio'
 import Card from '../../../shared/ui/Card'
+import { formatoPrecio } from '../../../shared/utils/formato'
 import { useCartStore, type ItemCarrito } from '../../../store/cartStore'
-
-const formatoPrecio = (valor: number) => `$ ${valor.toLocaleString('es-AR')}`
 
 function CarritoPage() {
   const items = useCartStore((state) => state.items)

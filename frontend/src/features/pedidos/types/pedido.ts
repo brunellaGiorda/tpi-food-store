@@ -25,6 +25,19 @@ export interface Pedido {
   items: DetallePedido[]
 }
 
+// Respuesta de GET /pedidos (PedidosPaginados)
+export interface PedidosPaginados {
+  total: number
+  items: Pedido[]
+}
+
+// Parámetros que acepta GET /pedidos
+export interface FiltrosPedidos {
+  skip: number
+  limit: number
+  estado?: EstadoPedido
+}
+
 // Lo que se manda en POST /pedidos (PedidoCreate)
 export interface PedidoInput {
   items: { producto_id: number; cantidad: number }[]

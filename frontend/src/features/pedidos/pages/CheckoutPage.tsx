@@ -5,12 +5,11 @@ import EstadoVacio from '../../../shared/components/EstadoVacio'
 import Button from '../../../shared/ui/Button'
 import Card from '../../../shared/ui/Card'
 import Input from '../../../shared/ui/Input'
+import { formatoPrecio } from '../../../shared/utils/formato'
 import { direccionValida } from '../../../shared/utils/validaciones'
 import { useCartStore } from '../../../store/cartStore'
 import { useCrearPedido } from '../hooks/useCrearPedido'
 import type { FormaPago } from '../types/pedido'
-
-const formatoPrecio = (valor: number) => `$ ${valor.toLocaleString('es-AR')}`
 
 const valoresIniciales = {
   direccion_entrega: '',

@@ -26,6 +26,7 @@ function Navbar() {
         <span className="font-bold">Food Store</span>
         <NavLink to="/" end className={estiloLink}>Catálogo</NavLink>
         <NavLink to="/carrito" className={estiloLink}>Carrito ({cantidadEnCarrito})</NavLink>
+        {usuario && <NavLink to="/mis-pedidos" className={estiloLink}>Mis pedidos</NavLink>}
 
         <div className="ml-auto flex items-center gap-4 text-sm">
           {usuario ? (
