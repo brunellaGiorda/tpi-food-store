@@ -35,11 +35,11 @@ class ProductoService:
             producto = uow.productos.add(Producto.model_validate(data))
             return ProductoRead.model_validate(producto)
 
-    # Se cambian solo los campos que vienen en el cuerpo
+    # Se cambian solo los campos que vienen en el cuerpo. Si uno viene en null (ej. la descripción), se borra.
     def actualizar(self, id: int, data: ProductoUpdate) -> ProductoRead:
         with self.uow as uow:
             producto = self._buscar(uow, id)
-            cambios = data.model_dump(exclude_none=True)
+            cambios = data.model_dump(exclude_unset=True)
             if "categoria_id" in cambios:
                 self._validar_categoria(uow, cambios["categoria_id"])
             producto.sqlmodel_update(cambios)
