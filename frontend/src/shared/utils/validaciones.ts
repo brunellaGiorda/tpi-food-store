@@ -13,6 +13,11 @@ export const emailValido: ValidadorTexto = ({ value }) =>
 export const passwordValida: ValidadorTexto = ({ value }) =>
   value.length >= 8 ? undefined : 'La contraseña debe tener al menos 8 caracteres'
 
+export const nombreCategoriaValido: ValidadorTexto = ({ value }) => {
+  const largo = value.trim().length
+  return largo >= 2 && largo <= 100 ? undefined : 'El nombre debe tener entre 2 y 100 caracteres'
+}
+
 export const direccionValida: ValidadorTexto = ({ value }) => {
   const largo = value.trim().length
   return largo >= 5 && largo <= 200 ? undefined : 'La dirección debe tener entre 5 y 200 caracteres'

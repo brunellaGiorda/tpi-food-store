@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import AdminCategoriasPage from '../features/categorias/pages/AdminCategoriasPage'
 import LoginPage from '../features/auth/pages/LoginPage'
 import RegisterPage from '../features/auth/pages/RegisterPage'
 import UnauthorizedPage from '../features/auth/pages/UnauthorizedPage'
@@ -7,6 +8,7 @@ import CarritoPage from '../features/pedidos/pages/CarritoPage'
 import CheckoutPage from '../features/pedidos/pages/CheckoutPage'
 import MisPedidosPage from '../features/pedidos/pages/MisPedidosPage'
 import CatalogoPage from '../features/productos/pages/CatalogoPage'
+import AdminLayout from '../shared/layout/AdminLayout'
 import MainLayout from '../shared/layout/MainLayout'
 import ProtectedRoute from './ProtectedRoute'
 
@@ -28,9 +30,12 @@ function AppRouter() {
             <Route path="/mis-pedidos" element={<MisPedidosPage />} />
           </Route>
 
-          {/* Solo admin */}
+          {/* Solo admin, con el menú del panel arriba */}
           <Route element={<ProtectedRoute roles={['admin']} />}>
-            <Route path="/admin/resumen" element={<AdminResumenPage />} />
+            <Route element={<AdminLayout />}>
+              <Route path="/admin/resumen" element={<AdminResumenPage />} />
+              <Route path="/admin/categorias" element={<AdminCategoriasPage />} />
+            </Route>
           </Route>
         </Route>
       </Routes>
