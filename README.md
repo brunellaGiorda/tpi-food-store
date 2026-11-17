@@ -64,3 +64,4 @@ Los clientes se crean desde el registro.
 ### Frontend
 
 - `src/vite-env.d.ts` declara `VITE_API_URL` como `string`. Sin ese archivo, Vite toma las variables del `.env` como `any`.
+- El formulario de checkout está dentro de `CheckoutPage` y no en un componente aparte, igual que los de login y registro: se usa en una sola pantalla, así que separarlo no agregaba nada.
