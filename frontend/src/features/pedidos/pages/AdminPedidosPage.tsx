@@ -64,9 +64,9 @@ function AdminPedidosPage() {
   return (
     <section className="flex flex-col gap-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-2xl font-bold text-gray-800">Pedidos</h1>
+        <h1 className="text-2xl font-bold text-stone-800">Pedidos</h1>
         <select
-          className="rounded border border-gray-300 bg-white px-3 py-2 text-sm"
+          className="rounded border border-stone-300 bg-white px-3 py-2 text-sm"
           value={estado ?? ''}
           onChange={(e) => setEstado((e.target.value || undefined) as EstadoPedido | undefined)}
         >
@@ -98,7 +98,7 @@ function AdminPedidosPage() {
               <>
                 <button
                   type="button"
-                  className="text-sky-600 hover:underline disabled:opacity-50"
+                  className="font-medium text-stone-700 hover:underline disabled:opacity-50"
                   disabled={cambiarEstado.isPending}
                   onClick={() => avanzar(pedido, siguiente.estado)}
                 >

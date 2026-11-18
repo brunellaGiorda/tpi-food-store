@@ -16,7 +16,7 @@ function Modal({ titulo, error, guardando, onGuardar, onCancelar, children }: Mo
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4">
       <div className="max-h-[90vh] w-full max-w-md overflow-y-auto rounded bg-white p-6 shadow-lg">
-        <h2 className="mb-4 text-xl font-bold text-gray-800">{titulo}</h2>
+        <h2 className="mb-4 text-xl font-bold text-stone-800">{titulo}</h2>
 
         <form
           className="flex flex-col gap-3"
@@ -30,7 +30,7 @@ function Modal({ titulo, error, guardando, onGuardar, onCancelar, children }: Mo
           {error && <p className="rounded bg-red-100 px-3 py-2 text-sm text-red-700">{error}</p>}
 
           <div className="mt-2 flex justify-end gap-2">
-            <button type="button" className="rounded border border-gray-300 px-4 py-2 text-sm" onClick={onCancelar}>
+            <button type="button" className="rounded border border-stone-300 px-4 py-2 text-sm" onClick={onCancelar}>
               Cancelar
             </button>
             <Button type="submit" disabled={guardando}>

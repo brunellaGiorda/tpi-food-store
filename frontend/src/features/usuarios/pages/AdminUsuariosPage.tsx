@@ -17,7 +17,7 @@ const columnas: ColumnDef<Usuario>[] = [
     header: 'Estado',
     cell: ({ getValue }) =>
       getValue<boolean>() ? (
-        <span className="rounded bg-gray-200 px-2 py-0.5 text-xs font-medium text-gray-700">Desactivado</span>
+        <span className="rounded bg-stone-200 px-2 py-0.5 text-xs font-medium text-stone-700">Desactivado</span>
       ) : (
         <span className="rounded bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">Activo</span>
       ),
@@ -46,7 +46,7 @@ function AdminUsuariosPage() {
 
   return (
     <section className="flex flex-col gap-4">
-      <h1 className="text-2xl font-bold text-gray-800">Usuarios</h1>
+      <h1 className="text-2xl font-bold text-stone-800">Usuarios</h1>
 
       {cambiarEstado.isError && (
         <p className="rounded bg-red-100 px-3 py-2 text-sm text-red-700">{handleApiError(cambiarEstado.error)}</p>
@@ -65,7 +65,7 @@ function AdminUsuariosPage() {
               return (
                 <button
                   type="button"
-                  className="text-sky-600 hover:underline disabled:opacity-50"
+                  className="font-medium text-stone-700 hover:underline disabled:opacity-50"
                   disabled={cambiarEstado.isPending}
                   onClick={() => cambiarEstado.mutate({ id: usuario.id, activar: true })}
                 >

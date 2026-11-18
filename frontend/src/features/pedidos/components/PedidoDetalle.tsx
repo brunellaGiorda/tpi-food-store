@@ -17,14 +17,14 @@ function PedidoDetalle({ pedido, acciones }: PedidoDetalleProps) {
   return (
     <Card className="flex flex-col gap-3">
       <div className="flex flex-wrap items-center gap-3">
-        <span className="font-semibold text-gray-800">Pedido #{pedido.id}</span>
+        <span className="font-semibold text-stone-800">Pedido #{pedido.id}</span>
         <BadgeEstado estado={pedido.estado} />
-        <span className="text-sm text-gray-500">{formatoFecha(pedido.created_at)}</span>
-        <span className="ml-auto font-bold text-gray-800">{formatoPrecio(pedido.total)}</span>
+        <span className="text-sm text-stone-500">{formatoFecha(pedido.created_at)}</span>
+        <span className="ml-auto font-bold text-stone-800">{formatoPrecio(pedido.total)}</span>
       </div>
 
       {abierto && (
-        <div className="flex flex-col gap-2 border-t border-gray-200 pt-3 text-sm">
+        <div className="flex flex-col gap-2 border-t border-stone-200 pt-3 text-sm">
           {pedido.items.map((item) => (
             <div key={item.producto_id} className="flex justify-between">
               <span>
@@ -33,14 +33,14 @@ function PedidoDetalle({ pedido, acciones }: PedidoDetalleProps) {
               <span>{formatoPrecio(item.subtotal)}</span>
             </div>
           ))}
-          <p className="text-gray-600">Dirección: {pedido.direccion_entrega}</p>
-          <p className="text-gray-600">Forma de pago: {pedido.forma_pago === 'EFECTIVO' ? 'Efectivo' : 'Transferencia'}</p>
-          {pedido.notas && <p className="text-gray-600">Notas: {pedido.notas}</p>}
+          <p className="text-stone-600">Dirección: {pedido.direccion_entrega}</p>
+          <p className="text-stone-600">Forma de pago: {pedido.forma_pago === 'EFECTIVO' ? 'Efectivo' : 'Transferencia'}</p>
+          {pedido.notas && <p className="text-stone-600">Notas: {pedido.notas}</p>}
         </div>
       )}
 
       <div className="flex items-center gap-4 text-sm">
-        <button type="button" className="text-sky-600 hover:underline" onClick={() => setAbierto(!abierto)}>
+        <button type="button" className="font-medium text-stone-700 hover:underline" onClick={() => setAbierto(!abierto)}>
           {abierto ? 'Ocultar detalle' : 'Ver detalle'}
         </button>
         {acciones}

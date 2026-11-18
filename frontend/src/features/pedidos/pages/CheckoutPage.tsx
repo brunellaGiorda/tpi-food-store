@@ -47,9 +47,9 @@ function CheckoutPage() {
   if (items.length === 0) {
     return (
       <section className="flex flex-col gap-4">
-        <h1 className="text-2xl font-bold text-gray-800">Confirmar pedido</h1>
+        <h1 className="text-2xl font-bold text-stone-800">Confirmar pedido</h1>
         <EstadoVacio mensaje="Tu carrito está vacío" />
-        <Link to="/" className="text-center text-sky-600 hover:underline">
+        <Link to="/" className="text-center text-orange-600 hover:underline">
           Ir al catálogo
         </Link>
       </section>
@@ -58,7 +58,7 @@ function CheckoutPage() {
 
   return (
     <section className="mx-auto flex max-w-lg flex-col gap-4">
-      <h1 className="text-2xl font-bold text-gray-800">Confirmar pedido</h1>
+      <h1 className="text-2xl font-bold text-stone-800">Confirmar pedido</h1>
 
       {/* Resumen del carrito */}
       <Card className="flex flex-col gap-2 text-sm">
@@ -70,7 +70,7 @@ function CheckoutPage() {
             <span>{formatoPrecio(item.precio_unitario * item.cantidad)}</span>
           </div>
         ))}
-        <div className="flex justify-between border-t border-gray-200 pt-2 text-base font-bold">
+        <div className="flex justify-between border-t border-stone-200 pt-2 text-base font-bold">
           <span>Total</span>
           <span>{formatoPrecio(total)}</span>
         </div>
@@ -98,9 +98,9 @@ function CheckoutPage() {
           <form.Field name="forma_pago">
             {(field) => (
               <label className="flex flex-col gap-1 text-sm">
-                <span className="font-medium text-gray-700">Forma de pago</span>
+                <span className="font-medium text-stone-700">Forma de pago</span>
                 <select
-                  className="rounded border border-gray-300 px-3 py-2"
+                  className="rounded border border-stone-300 px-3 py-2"
                   value={field.state.value}
                   onChange={(e) => field.handleChange(e.target.value as FormaPago)}
                 >
@@ -114,9 +114,9 @@ function CheckoutPage() {
           <form.Field name="notas">
             {(field) => (
               <label className="flex flex-col gap-1 text-sm">
-                <span className="font-medium text-gray-700">Notas (opcional)</span>
+                <span className="font-medium text-stone-700">Notas (opcional)</span>
                 <textarea
-                  className="rounded border border-gray-300 px-3 py-2"
+                  className="rounded border border-stone-300 px-3 py-2"
                   rows={2}
                   value={field.state.value}
                   onChange={(e) => field.handleChange(e.target.value)}

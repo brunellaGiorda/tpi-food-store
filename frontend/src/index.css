@@ -6,4 +6,12 @@
   select {
     cursor: pointer;
   }
+
+  /* Borde naranja en el campo donde se está escribiendo */
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: 2px solid var(--color-orange-500);
+    outline-offset: -1px;
+  }
 }

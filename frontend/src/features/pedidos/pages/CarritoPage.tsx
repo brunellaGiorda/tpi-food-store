@@ -26,9 +26,9 @@ function CarritoPage() {
   if (items.length === 0) {
     return (
       <section className="flex flex-col gap-4">
-        <h1 className="text-2xl font-bold text-gray-800">Carrito</h1>
+        <h1 className="text-2xl font-bold text-stone-800">Carrito</h1>
         <EstadoVacio mensaje="Tu carrito está vacío" />
-        <Link to="/" className="text-center text-sky-600 hover:underline">
+        <Link to="/" className="text-center text-orange-600 hover:underline">
           Ir al catálogo
         </Link>
       </section>
@@ -37,25 +37,25 @@ function CarritoPage() {
 
   return (
     <section className="flex flex-col gap-4">
-      <h1 className="text-2xl font-bold text-gray-800">Carrito</h1>
+      <h1 className="text-2xl font-bold text-stone-800">Carrito</h1>
 
-      <Card className="flex flex-col divide-y divide-gray-200">
+      <Card className="flex flex-col divide-y divide-stone-200">
         {items.map((item) => (
           <div key={item.producto_id} className="flex flex-wrap items-center gap-4 py-3">
             <div className="flex-1">
-              <p className="font-medium text-gray-800">{item.nombre}</p>
-              <p className="text-sm text-gray-500">{formatoPrecio(item.precio_unitario)} c/u</p>
+              <p className="font-medium text-stone-800">{item.nombre}</p>
+              <p className="text-sm text-stone-500">{formatoPrecio(item.precio_unitario)} c/u</p>
             </div>
 
             <input
               type="number"
               min={1}
-              className="w-14 rounded border border-gray-300 px-2 py-1 text-sm"
+              className="w-14 rounded border border-stone-300 px-2 py-1 text-sm"
               value={item.cantidad}
               onChange={(e) => cambiarCantidad(item.producto_id, Number(e.target.value))}
             />
 
-            <span className="w-28 text-right font-medium text-gray-800">
+            <span className="w-28 text-right font-medium text-stone-800">
               {formatoPrecio(item.precio_unitario * item.cantidad)}
             </span>
 
@@ -71,13 +71,13 @@ function CarritoPage() {
       </Card>
 
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <button type="button" className="text-sm text-gray-600 hover:underline" onClick={confirmarVaciar}>
+        <button type="button" className="text-sm text-stone-600 hover:underline" onClick={confirmarVaciar}>
           Vaciar carrito
         </button>
 
         <div className="flex items-center gap-4">
-          <span className="text-xl font-bold text-gray-800">Total: {formatoPrecio(total)}</span>
-          <Link to="/checkout" className="rounded bg-sky-600 px-4 py-2 text-sm text-white hover:bg-sky-700">
+          <span className="text-xl font-bold text-stone-800">Total: {formatoPrecio(total)}</span>
+          <Link to="/checkout" className="rounded bg-orange-600 px-4 py-2 text-sm text-white hover:bg-orange-700">
             Confirmar pedido
           </Link>
         </div>

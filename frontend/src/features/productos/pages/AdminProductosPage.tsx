@@ -126,7 +126,7 @@ function AdminProductosPage() {
   return (
     <section className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-800">Productos</h1>
+        <h1 className="text-2xl font-bold text-stone-800">Productos</h1>
         <Button type="button" onClick={() => abrirModal(null)}>
           Nuevo producto
         </Button>
@@ -146,10 +146,10 @@ function AdminProductosPage() {
           mensajeVacio="No hay productos cargados"
           acciones={(producto) => (
             <>
-              <button type="button" className="text-sky-600 hover:underline" onClick={() => abrirModal(producto)}>
+              <button type="button" className="font-medium text-stone-700 hover:underline" onClick={() => abrirModal(producto)}>
                 Editar
               </button>
-              <button type="button" className="text-sky-600 hover:underline" onClick={() => abrirStock(producto)}>
+              <button type="button" className="font-medium text-stone-700 hover:underline" onClick={() => abrirStock(producto)}>
                 Stock
               </button>
               <button type="button" className="text-red-600 hover:underline" onClick={() => confirmarEliminar(producto)}>
@@ -184,9 +184,9 @@ function AdminProductosPage() {
           <form.Field name="descripcion">
             {(field) => (
               <label className="flex flex-col gap-1 text-sm">
-                <span className="font-medium text-gray-700">Descripción (opcional)</span>
+                <span className="font-medium text-stone-700">Descripción (opcional)</span>
                 <textarea
-                  className="rounded border border-gray-300 px-3 py-2"
+                  className="rounded border border-stone-300 px-3 py-2"
                   rows={2}
                   value={field.state.value}
                   onChange={(e) => field.handleChange(e.target.value)}
@@ -212,9 +212,9 @@ function AdminProductosPage() {
           <form.Field name="categoria_id" validators={{ onSubmit: categoriaElegida }}>
             {(field) => (
               <label className="flex flex-col gap-1 text-sm">
-                <span className="font-medium text-gray-700">Categoría</span>
+                <span className="font-medium text-stone-700">Categoría</span>
                 <select
-                  className="rounded border border-gray-300 px-3 py-2"
+                  className="rounded border border-stone-300 px-3 py-2"
                   value={field.state.value}
                   onChange={(e) => field.handleChange(Number(e.target.value))}
                 >

@@ -9,8 +9,8 @@ interface TarjetaResumenProps {
 function TarjetaResumen({ titulo, valor }: TarjetaResumenProps) {
   return (
     <Card className="flex flex-col gap-1">
-      <span className="text-3xl font-bold text-gray-800">{valor}</span>
-      <span className="text-sm text-gray-500">{titulo}</span>
+      <span className="text-3xl font-bold text-stone-800">{valor}</span>
+      <span className="text-sm text-stone-500">{titulo}</span>
     </Card>
   )
 }
