@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+/* Tailwind 4 deja la flecha normal en los botones. Con esto se ve la manito en todo lo que se puede tocar. */
+@layer base {
+  button:not(:disabled),
+  select {
+    cursor: pointer;
+  }
+}

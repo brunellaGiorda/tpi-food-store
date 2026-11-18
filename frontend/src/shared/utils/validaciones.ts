@@ -1,0 +1,34 @@
+// Validadores para TanStack Form: devuelven el mensaje de error, o undefined si el valor es válido.
+// Repiten las reglas del backend para avisar antes de mandar el formulario.
+type ValidadorTexto = ({ value }: { value: string }) => string | undefined
+type ValidadorNumero = ({ value }: { value: number }) => string | undefined
+
+export const obligatorio: ValidadorTexto = ({ value }) => (value.trim() ? undefined : 'Campo obligatorio')
+
+export const usuarioValido: ValidadorTexto = ({ value }) =>
+  value.trim().length >= 3 ? undefined : 'El usuario debe tener al menos 3 caracteres'
+
+export const emailValido: ValidadorTexto = ({ value }) =>
+  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim()) ? undefined : 'El email no es válido'
+
+export const passwordValida: ValidadorTexto = ({ value }) =>
+  value.length >= 8 ? undefined : 'La contraseña debe tener al menos 8 caracteres'
+
+export const nombreCategoriaValido: ValidadorTexto = ({ value }) => {
+  const largo = value.trim().length
+  return largo >= 2 && largo <= 100 ? undefined : 'El nombre debe tener entre 2 y 100 caracteres'
+}
+
+export const direccionValida: ValidadorTexto = ({ value }) => {
+  const largo = value.trim().length
+  return largo >= 5 && largo <= 200 ? undefined : 'La dirección debe tener entre 5 y 200 caracteres'
+}
+
+// Un campo numérico vacío llega como NaN (no es un número)
+export const precioValido: ValidadorNumero = ({ value }) =>
+  !Number.isNaN(value) && value >= 0 ? undefined : 'El precio tiene que ser 0 o más'
+
+export const stockValido: ValidadorNumero = ({ value }) =>
+  Number.isInteger(value) && value >= 0 ? undefined : 'El stock tiene que ser un número entero, 0 o más'
+
+export const categoriaElegida: ValidadorNumero = ({ value }) => (value > 0 ? undefined : 'Elegí una categoría')

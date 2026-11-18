@@ -31,11 +31,11 @@ class CategoriaService:
             categoria = uow.categorias.add(Categoria.model_validate(data))
             return CategoriaRead.model_validate(categoria)
 
-    # Se cambian solo los campos que vienen en el cuerpo
+    # Se cambian solo los campos que vienen en el cuerpo. Si uno viene en null (ej. la descripción), se borra.
     def actualizar(self, id: int, data: CategoriaUpdate) -> CategoriaRead:
         with self.uow as uow:
             categoria = self._buscar(uow, id)
-            cambios = data.model_dump(exclude_none=True)
+            cambios = data.model_dump(exclude_unset=True)
             if "nombre" in cambios:
                 existente = uow.categorias.get_by_nombre(cambios["nombre"])
                 if existente and existente.id != id:
