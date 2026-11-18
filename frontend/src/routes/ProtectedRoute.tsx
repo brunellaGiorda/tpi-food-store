@@ -14,7 +14,7 @@ function ProtectedRoute({ roles }: ProtectedRouteProps) {
 
   // Mientras /auth/me confirma la sesión no se decide nada
   if (cargando) {
-    return <p className="text-center text-gray-500">Verificando sesión...</p>
+    return <p className="text-center text-stone-500">Verificando sesión...</p>
   }
   // Sin sesión: al login
   if (!usuario) {

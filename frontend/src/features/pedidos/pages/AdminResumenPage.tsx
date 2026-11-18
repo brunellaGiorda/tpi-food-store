@@ -9,7 +9,7 @@ function AdminResumenPage() {
 
   return (
     <section className="flex flex-col gap-4">
-      <h1 className="text-2xl font-bold text-gray-800">Resumen</h1>
+      <h1 className="text-2xl font-bold text-stone-800">Resumen</h1>
 
       {isPending && (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

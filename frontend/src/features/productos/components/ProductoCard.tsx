@@ -22,15 +22,15 @@ function ProductoCard({ producto }: { producto: Producto }) {
       {producto.imagen_url ? (
         <img src={producto.imagen_url} alt={producto.nombre} className="h-36 w-full rounded object-cover" />
       ) : (
-        <div className="flex h-36 items-center justify-center rounded bg-gray-100 text-sm text-gray-400">Sin imagen</div>
+        <div className="flex h-36 items-center justify-center rounded bg-stone-100 text-sm text-stone-400">Sin imagen</div>
       )}
 
-      <span className="text-xs uppercase text-sky-700">{producto.categoria.nombre}</span>
-      <h2 className="font-semibold text-gray-800">{producto.nombre}</h2>
-      {producto.descripcion && <p className="text-sm text-gray-600">{producto.descripcion}</p>}
+      <span className="text-xs uppercase text-orange-700">{producto.categoria.nombre}</span>
+      <h2 className="font-semibold text-stone-800">{producto.nombre}</h2>
+      {producto.descripcion && <p className="text-sm text-stone-600">{producto.descripcion}</p>}
 
       <div className="mt-auto flex items-center justify-between pt-2">
-        <span className="text-lg font-bold text-gray-800">{formatoPrecio(producto.precio_base)}</span>
+        <span className="text-lg font-bold text-stone-800">{formatoPrecio(producto.precio_base)}</span>
         {!sePuedeComprar && <span className="text-xs text-red-600">No disponible</span>}
       </div>
 

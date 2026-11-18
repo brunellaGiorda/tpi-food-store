@@ -72,7 +72,7 @@ function AdminCategoriasPage() {
   return (
     <section className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-800">Categorías</h1>
+        <h1 className="text-2xl font-bold text-stone-800">Categorías</h1>
         <Button type="button" onClick={() => abrirModal(null)}>
           Nueva categoría
         </Button>
@@ -92,7 +92,7 @@ function AdminCategoriasPage() {
           mensajeVacio="No hay categorías cargadas"
           acciones={(categoria) => (
             <>
-              <button type="button" className="text-sky-600 hover:underline" onClick={() => abrirModal(categoria)}>
+              <button type="button" className="font-medium text-stone-700 hover:underline" onClick={() => abrirModal(categoria)}>
                 Editar
               </button>
               <button type="button" className="text-red-600 hover:underline" onClick={() => confirmarEliminar(categoria)}>
@@ -126,9 +126,9 @@ function AdminCategoriasPage() {
           <form.Field name="descripcion">
             {(field) => (
               <label className="flex flex-col gap-1 text-sm">
-                <span className="font-medium text-gray-700">Descripción (opcional)</span>
+                <span className="font-medium text-stone-700">Descripción (opcional)</span>
                 <textarea
-                  className="rounded border border-gray-300 px-3 py-2"
+                  className="rounded border border-stone-300 px-3 py-2"
                   rows={3}
                   value={field.state.value}
                   onChange={(e) => field.handleChange(e.target.value)}

@@ -29,7 +29,7 @@ function MisPedidosPage() {
 
   return (
     <section className="flex flex-col gap-4">
-      <h1 className="text-2xl font-bold text-gray-800">Mis pedidos</h1>
+      <h1 className="text-2xl font-bold text-stone-800">Mis pedidos</h1>
 
       {cancelar.isError && (
         <p className="rounded bg-red-100 px-3 py-2 text-sm text-red-700">{handleApiError(cancelar.error)}</p>

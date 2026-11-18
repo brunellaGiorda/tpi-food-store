@@ -31,62 +31,65 @@ function LoginPage() {
   }
 
   return (
-    <section className="mx-auto flex max-w-sm flex-col gap-4 rounded bg-white p-6 shadow">
-      <h1 className="text-2xl font-bold text-gray-800">Iniciar sesión</h1>
+    // min-h-[70vh] con items-center deja la tarjeta centrada en la pantalla, también de arriba a abajo
+    <div className="flex min-h-[70vh] items-center justify-center">
+      <section className="flex w-full max-w-sm flex-col gap-4 rounded bg-white p-6 shadow">
+        <h1 className="text-2xl font-bold text-stone-800">Iniciar sesión</h1>
 
-      {recienRegistrado && (
-        <p className="rounded bg-green-100 px-3 py-2 text-sm text-green-700">Cuenta creada. Ya podés iniciar sesión.</p>
-      )}
-
-      <form
-        className="flex flex-col gap-3"
-        onSubmit={(e) => {
-          e.preventDefault()
-          form.handleSubmit()
-        }}
-      >
-        <form.Field name="username" validators={{ onSubmit: obligatorio }}>
-          {(field) => (
-            <Input
-              label="Usuario"
-              value={field.state.value}
-              onChange={(e) => field.handleChange(e.target.value)}
-              error={field.state.meta.errors[0]}
-              autoComplete="username"
-              autoFocus
-            />
-          )}
-        </form.Field>
-
-        <form.Field name="password" validators={{ onSubmit: obligatorio }}>
-          {(field) => (
-            <Input
-              label="Contraseña"
-              type="password"
-              value={field.state.value}
-              onChange={(e) => field.handleChange(e.target.value)}
-              error={field.state.meta.errors[0]}
-              autoComplete="current-password"
-            />
-          )}
-        </form.Field>
-
-        {ingresar.isError && (
-          <p className="rounded bg-red-100 px-3 py-2 text-sm text-red-700">{handleApiError(ingresar.error)}</p>
+        {recienRegistrado && (
+          <p className="rounded bg-green-100 px-3 py-2 text-sm text-green-700">Cuenta creada. Ya podés iniciar sesión.</p>
         )}
 
-        <Button type="submit" disabled={ingresar.isPending}>
-          {ingresar.isPending ? 'Ingresando...' : 'Ingresar'}
-        </Button>
-      </form>
+        <form
+          className="flex flex-col gap-3"
+          onSubmit={(e) => {
+            e.preventDefault()
+            form.handleSubmit()
+          }}
+        >
+          <form.Field name="username" validators={{ onSubmit: obligatorio }}>
+            {(field) => (
+              <Input
+                label="Usuario"
+                value={field.state.value}
+                onChange={(e) => field.handleChange(e.target.value)}
+                error={field.state.meta.errors[0]}
+                autoComplete="username"
+                autoFocus
+              />
+            )}
+          </form.Field>
 
-      <p className="text-sm text-gray-600">
-        ¿No tenés cuenta?{' '}
-        <Link to="/register" className="text-sky-600 hover:underline">
-          Registrate
-        </Link>
-      </p>
-    </section>
+          <form.Field name="password" validators={{ onSubmit: obligatorio }}>
+            {(field) => (
+              <Input
+                label="Contraseña"
+                type="password"
+                value={field.state.value}
+                onChange={(e) => field.handleChange(e.target.value)}
+                error={field.state.meta.errors[0]}
+                autoComplete="current-password"
+              />
+            )}
+          </form.Field>
+
+          {ingresar.isError && (
+            <p className="rounded bg-red-100 px-3 py-2 text-sm text-red-700">{handleApiError(ingresar.error)}</p>
+          )}
+
+          <Button type="submit" disabled={ingresar.isPending}>
+            {ingresar.isPending ? 'Ingresando...' : 'Ingresar'}
+          </Button>
+        </form>
+
+        <p className="text-center text-sm text-stone-600">
+          ¿No tenés cuenta?{' '}
+          <Link to="/register" className="text-orange-600 hover:underline">
+            Registrate
+          </Link>
+        </p>
+      </section>
+    </div>
   )
 }
 

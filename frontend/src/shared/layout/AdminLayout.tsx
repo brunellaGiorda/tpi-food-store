@@ -2,7 +2,7 @@ import { NavLink, Outlet } from 'react-router-dom'
 
 // La sección actual se ve resaltada
 const estiloLink = ({ isActive }: { isActive: boolean }) =>
-  `rounded px-3 py-1 text-sm ${isActive ? 'bg-sky-600 text-white' : 'text-gray-700 hover:bg-gray-200'}`
+  `rounded px-3 py-1 text-sm ${isActive ? 'bg-orange-600 text-white' : 'text-stone-700 hover:bg-stone-200'}`
 
 // Menú para moverse entre las pantallas del admin, arriba de cada una
 function AdminLayout() {

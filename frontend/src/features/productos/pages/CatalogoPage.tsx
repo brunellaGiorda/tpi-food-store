@@ -46,18 +46,18 @@ function CatalogoPage() {
 
   return (
     <section className="flex flex-col gap-4">
-      <h1 className="text-2xl font-bold text-gray-800">Catálogo</h1>
+      <h1 className="text-2xl font-bold text-stone-800">Catálogo</h1>
 
       <div className="flex flex-col gap-3 sm:flex-row">
         <input
-          className="flex-1 rounded border border-gray-300 bg-white px-3 py-2 text-sm"
+          className="flex-1 rounded border border-stone-300 bg-white px-3 py-2 text-sm"
           placeholder="Buscar por nombre..."
           value={busqueda}
           onChange={(e) => buscar(e.target.value)}
         />
 
         <select
-          className="rounded border border-gray-300 bg-white px-3 py-2 text-sm"
+          className="rounded border border-stone-300 bg-white px-3 py-2 text-sm"
           value={categoriaId ?? ''}
           onChange={(e) => elegirCategoria(e.target.value)}
         >
@@ -70,7 +70,7 @@ function CatalogoPage() {
         </select>
 
         {hayFiltros && (
-          <button type="button" className="text-sm text-sky-600 hover:underline" onClick={limpiarFiltros}>
+          <button type="button" className="text-sm text-orange-600 hover:underline" onClick={limpiarFiltros}>
             Limpiar filtros
           </button>
         )}

@@ -19,7 +19,7 @@ function Tabla<T>({ table, mensajeVacio, acciones }: TablaProps<T>) {
     <div className="flex flex-col gap-3">
       <div className="overflow-x-auto rounded bg-white shadow">
         <table className="w-full text-left text-sm">
-          <thead className="bg-gray-100 text-gray-700">
+          <thead className="bg-stone-100 text-stone-700">
             {table.getHeaderGroups().map((grupo) => (
               <tr key={grupo.id}>
                 {grupo.headers.map((header) => (
@@ -34,13 +34,13 @@ function Tabla<T>({ table, mensajeVacio, acciones }: TablaProps<T>) {
           <tbody>
             {filas.length === 0 ? (
               <tr>
-                <td colSpan={cantidadColumnas} className="px-4 py-6 text-center text-gray-500">
+                <td colSpan={cantidadColumnas} className="px-4 py-6 text-center text-stone-500">
                   {mensajeVacio}
                 </td>
               </tr>
             ) : (
               filas.map((fila) => (
-                <tr key={fila.id} className="border-t border-gray-200">
+                <tr key={fila.id} className="border-t border-stone-200">
                   {fila.getVisibleCells().map((celda) => (
                     <td key={celda.id} className="px-4 py-2">
                       {flexRender(celda.column.columnDef.cell, celda.getContext())}
