@@ -8,6 +8,8 @@ Repositorio: https://github.com/brunellaGiorda/tpi-food-store
 
 - Python 3.11 o superior (se desarrolló con 3.14)
 - PostgreSQL 15 o superior
+- Node.js 20.19 o superior
+- pnpm 9 o superior
 
 ## Backend
 
@@ -20,6 +22,7 @@ Repositorio: https://github.com/brunellaGiorda/tpi-food-store
    .venv\Scripts\activate
    pip install -r requirements.txt
    ```
+   En macOS o Linux el entorno se activa con `source .venv/bin/activate`.
 3. Copiar `.env.example` como `.env` y completar la contraseña de PostgreSQL en `DATABASE_URL` y una `SECRET_KEY`.
 4. Cargar los datos iniciales y levantar la API:
    ```
@@ -49,6 +52,30 @@ La documentación queda en http://localhost:8000/docs y http://localhost:8000/re
 
 Los clientes se crean desde el registro.
 
+## Frontend
+
+### Instalación y ejecución
+
+Con la API ya levantada:
+
+1. Desde la carpeta `frontend/`, instalar las dependencias:
+   ```
+   pnpm install
+   ```
+2. Copiar `.env.example` como `.env`. El valor que trae ya apunta a la API local.
+3. Levantar la aplicación:
+   ```
+   pnpm dev
+   ```
+
+La aplicación queda en http://localhost:5173. Para verificar los tipos y generar la versión final se usa `pnpm build`.
+
+### Variables de entorno
+
+| Variable | Descripción | Ejemplo |
+|---|---|---|
+| `VITE_API_URL` | Dirección de la API, con el prefijo `/api/v1` | `http://localhost:8000/api/v1` |
+
 ## Decisiones
 
 ### Backend
@@ -65,3 +92,6 @@ Los clientes se crean desde el registro.
 
 - `src/vite-env.d.ts` declara `VITE_API_URL` como `string`. Sin ese archivo, Vite toma las variables del `.env` como `any`.
 - El formulario de checkout está dentro de `CheckoutPage` y no en un componente aparte, igual que los de login y registro: se usa en una sola pantalla, así que separarlo no agregaba nada.
+- El panel de administración tiene un menú propio (`shared/layout/AdminLayout.tsx`) para moverse entre sus cinco pantallas. En la Navbar queda un solo link, "Panel", visible solo para el admin.
+- Las tablas del panel usan un componente común, `shared/components/Tabla.tsx`, que recibe la tabla armada con TanStack Table en cada página.
+- En el ABM de productos el stock y la disponibilidad se cambian con el botón "Stock", que usa `PATCH /productos/{id}/stock`. Al crear un producto se carga el stock inicial; al editarlo, no.
