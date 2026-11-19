@@ -44,7 +44,7 @@ La documentación queda en http://localhost:8000/docs y http://localhost:8000/re
 
 ### Datos iniciales
 
-`python -m app.db.seed` crea el usuario administrador, 3 categorías y 8 productos con stock. Se puede correr más de una vez sin duplicar datos.
+`python -m app.db.seed` crea el usuario administrador, 4 categorías y 12 productos con stock. Se puede correr más de una vez sin duplicar datos.
 
 | Usuario | Contraseña | Rol |
 |---|---|---|
