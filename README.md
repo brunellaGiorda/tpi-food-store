@@ -86,12 +86,14 @@ La aplicación queda en http://localhost:5173. Para verificar los tipos y genera
 - Los `# type: ignore[...]` solo ocultan avisos de VS Code que no son errores reales (por ejemplo, que un `id` podría ser `None` o que `Settings()` no recibe argumentos porque los lee del `.env`). No cambian cómo funciona el código.
 - La baja lógica se resuelve en el repositorio base: `delete` pone `activo = False`, y `get_by_id` y `get_all` ignoran los registros dados de baja.
 - En el registro se sacan los espacios al principio y al final de los textos (`str_strip_whitespace`), para que `" maria "` y `"maria"` no cuenten como usuarios distintos.
+- El nombre de una categoría es único sin distinguir mayúsculas: si existe "Bebidas", no se puede crear "bebidas". Los productos no tienen nombre único, porque la consigna no lo pide.
 - La búsqueda de productos no distingue mayúsculas, como pide la consigna, pero sí tildes: "milanesa" no encuentra "Milanésa". Para ignorar también las tildes se podría usar la extensión `unaccent` de PostgreSQL.
 
 ### Frontend
 
 - `src/vite-env.d.ts` declara `VITE_API_URL` como `string`. Sin ese archivo, Vite toma las variables del `.env` como `any`.
 - El formulario de checkout está dentro de `CheckoutPage` y no en un componente aparte, igual que los de login y registro: se usa en una sola pantalla, así que separarlo no agregaba nada.
+- "Mis pedidos" es solo para los clientes. `GET /pedidos` le devuelve al admin los pedidos de todos, así que el admin los ve y los gestiona en Panel -- Pedidos (incluidos los que hace él). Si entra a `/mis-pedidos`, se lo redirige ahí.
 - El panel de administración tiene un menú propio (`shared/layout/AdminLayout.tsx`) para moverse entre sus cinco pantallas. En la Navbar queda un solo link, "Panel", visible solo para el admin.
 - Las tablas del panel usan un componente común, `shared/components/Tabla.tsx`, que recibe la tabla armada con TanStack Table en cada página.
 - En el ABM de productos el stock y la disponibilidad se cambian con el botón "Stock", que usa `PATCH /productos/{id}/stock`. Al crear un producto se carga el stock inicial; al editarlo, no.

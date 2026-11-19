@@ -30,7 +30,8 @@ function Navbar() {
         <span className="text-lg font-bold">Food Store</span>
         <NavLink to="/" end className={estiloLink}>Catálogo</NavLink>
         <NavLink to="/carrito" className={estiloLink}>Carrito ({cantidadEnCarrito})</NavLink>
-        {usuario && <NavLink to="/mis-pedidos" className={estiloLink}>Mis pedidos</NavLink>}
+        {/* Mis pedidos es para los clientes: el admin ve todos los pedidos en el Panel */}
+        {usuario?.role === 'user' && <NavLink to="/mis-pedidos" className={estiloLink}>Mis pedidos</NavLink>}
         {/* El panel solo se muestra al admin (igual el back controla el rol) */}
         {usuario?.role === 'admin' && (
           <NavLink to="/admin/resumen" className={() => estiloLink({ isActive: enPanel })}>Panel</NavLink>

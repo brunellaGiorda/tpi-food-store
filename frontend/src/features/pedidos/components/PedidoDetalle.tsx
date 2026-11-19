@@ -8,11 +8,13 @@ interface PedidoDetalleProps {
   pedido: Pedido
   // Botones que se muestran abajo (por ejemplo, Cancelar)
   acciones?: ReactNode
+  // true: arranca con el detalle desplegado (lo usa el panel del admin)
+  abiertoInicial?: boolean
 }
 
 // Resumen del pedido; con "Ver detalle" se despliegan las líneas y los datos de entrega
-function PedidoDetalle({ pedido, acciones }: PedidoDetalleProps) {
-  const [abierto, setAbierto] = useState(false)
+function PedidoDetalle({ pedido, acciones, abiertoInicial = false }: PedidoDetalleProps) {
+  const [abierto, setAbierto] = useState(abiertoInicial)
 
   return (
     <Card className="flex flex-col gap-3">
