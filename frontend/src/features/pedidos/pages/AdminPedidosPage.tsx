@@ -6,6 +6,7 @@ import Skeleton from '../../../shared/components/Skeleton'
 import Tabla from '../../../shared/components/Tabla'
 import BadgeEstado from '../../../shared/ui/BadgeEstado'
 import { formatoFecha, formatoPrecio } from '../../../shared/utils/formato'
+import PedidoDetalle from '../components/PedidoDetalle'
 import { useCambiarEstadoPedido } from '../hooks/useCambiarEstadoPedido'
 import { usePedidos } from '../hooks/usePedidos'
 import type { EstadoPedido, Pedido } from '../types/pedido'
@@ -42,6 +43,10 @@ function AdminPedidosPage() {
   // El panel pide hasta 100 pedidos (los más nuevos primero) y la tabla los pagina del lado del cliente
   const { data, isPending, isError, error } = usePedidos({ skip: 0, limit: 100, estado })
   const cambiarEstado = useCambiarEstadoPedido()
+  // Se guarda solo el id del pedido que se mira en detalle y se busca en la lista,
+  // así la tarjeta se actualiza si cambia el estado
+  const [seleccionadoId, setSeleccionadoId] = useState<number | null>(null)
+  const seleccionado = data?.items.find((pedido) => pedido.id === seleccionadoId)
 
   const table = useReactTable({
     data: data?.items ?? [],
@@ -82,6 +87,19 @@ function AdminPedidosPage() {
         <p className="rounded bg-red-100 px-3 py-2 text-sm text-red-700">{handleApiError(cambiarEstado.error)}</p>
       )}
 
+      {seleccionado && (
+        <PedidoDetalle
+          key={seleccionado.id}
+          pedido={seleccionado}
+          abiertoInicial
+          acciones={
+            <button type="button" className="text-stone-500 hover:underline" onClick={() => setSeleccionadoId(null)}>
+              Cerrar
+            </button>
+          }
+        />
+      )}
+
       {isPending && <Skeleton className="h-48" />}
 
       {isError && <EstadoError error={error} />}
@@ -92,26 +110,32 @@ function AdminPedidosPage() {
           mensajeVacio="No hay pedidos"
           acciones={(pedido) => {
             const siguiente = siguienteEstado[pedido.estado]
-            // Sin siguiente estado es ENTREGADO o CANCELADO: no se puede hacer nada
-            if (!siguiente) return null
             return (
               <>
-                <button
-                  type="button"
-                  className="font-medium text-stone-700 hover:underline disabled:opacity-50"
-                  disabled={cambiarEstado.isPending}
-                  onClick={() => avanzar(pedido, siguiente.estado)}
-                >
-                  {siguiente.texto}
+                <button type="button" className="font-medium text-stone-700 hover:underline" onClick={() => setSeleccionadoId(pedido.id)}>
+                  Detalle
                 </button>
-                <button
-                  type="button"
-                  className="text-red-600 hover:underline disabled:opacity-50"
-                  disabled={cambiarEstado.isPending}
-                  onClick={() => confirmarCancelar(pedido)}
-                >
-                  Cancelar
-                </button>
+                {/* Sin siguiente estado es ENTREGADO o CANCELADO: solo se puede ver el detalle */}
+                {siguiente && (
+                  <>
+                    <button
+                      type="button"
+                      className="font-medium text-stone-700 hover:underline disabled:opacity-50"
+                      disabled={cambiarEstado.isPending}
+                      onClick={() => avanzar(pedido, siguiente.estado)}
+                    >
+                      {siguiente.texto}
+                    </button>
+                    <button
+                      type="button"
+                      className="text-red-600 hover:underline disabled:opacity-50"
+                      disabled={cambiarEstado.isPending}
+                      onClick={() => confirmarCancelar(pedido)}
+                    >
+                      Cancelar
+                    </button>
+                  </>
+                )}
               </>
             )
           }}

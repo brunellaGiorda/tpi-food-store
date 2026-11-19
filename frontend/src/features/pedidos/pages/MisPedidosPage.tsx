@@ -1,9 +1,11 @@
 import { useState } from 'react'
+import { Navigate } from 'react-router-dom'
 import { handleApiError } from '../../../shared/api/handleApiError'
 import EstadoError from '../../../shared/components/EstadoError'
 import EstadoVacio from '../../../shared/components/EstadoVacio'
 import Paginacion from '../../../shared/components/Paginacion'
 import Skeleton from '../../../shared/components/Skeleton'
+import { useAuthStore } from '../../../store/authStore'
 import PedidoDetalle from '../components/PedidoDetalle'
 import { useCancelarPedido } from '../hooks/useCancelarPedido'
 import { usePedidos } from '../hooks/usePedidos'
@@ -18,8 +20,14 @@ function MisPedidosPage() {
     limit: PEDIDOS_POR_PAGINA,
   })
   const cancelar = useCancelarPedido()
+  const esAdmin = useAuthStore((state) => state.usuario?.role === 'admin')
 
   const totalPaginas = data ? Math.ceil(data.total / PEDIDOS_POR_PAGINA) : 0
+
+  // Al admin el back le devuelve los pedidos de todos: los ve y los gestiona en Panel --> Pedidos
+  if (esAdmin) {
+    return <Navigate to="/admin/pedidos" replace />
+  }
 
   function confirmarCancelar(pedido: Pedido) {
     if (window.confirm(`¿Cancelar el pedido #${pedido.id}?`)) {
