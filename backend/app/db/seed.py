@@ -40,7 +40,8 @@ CATALOGO = {
         ("Agua mineral 500 ml", "Sin gas", 1500, 30,
          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2UW-zmknqWz6YF75DlATbC038wtlEN22o9i5bNOipOg&s=10"),
         ("Jugo de naranja 1 L", "Exprimido", 2500, 25,
-         "https://jumboargentina.vtexassets.com/arquivos/ids/764036/Jugo-Estancia-Los-Naranjos-Naranja-1-938560.jpg?v=638083786205830000"),    ],
+         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQs71aJ_P5CNLu_TPBWz03HIXlAay_XYvwtaShc7W_ngimSdh9Ue3DpsRI&s=10"),
+    ],
 }
 
 
