@@ -35,13 +35,18 @@ class ProductoService:
             producto = uow.productos.add(Producto.model_validate(data))
             return ProductoRead.model_validate(producto)
 
-    # Se cambian solo los campos que vienen en el cuerpo. Si uno viene en null (ej. la descripción), se borra.
+    # Se cambian solo los campos que vienen en el cuerpo. La descripción y la imagen se pueden borrar mandando null;
+    # en los campos obligatorios el null se ignora (si no, la base lo rechaza y la API responde 500)
     def actualizar(self, id: int, data: ProductoUpdate) -> ProductoRead:
         with self.uow as uow:
             producto = self._buscar(uow, id)
-            cambios = data.model_dump(exclude_unset=True)
-            if "categoria_id" in cambios:
-                self._validar_categoria(uow, cambios["categoria_id"])
+            cambios = {
+                campo: valor
+                for campo, valor in data.model_dump(exclude_unset=True).items()
+                if valor is not None or campo in ("descripcion", "imagen_url")
+            }
+            if data.categoria_id is not None:
+                self._validar_categoria(uow, data.categoria_id)
             producto.sqlmodel_update(cambios)
             producto = uow.productos.add(producto)
             return ProductoRead.model_validate(producto)

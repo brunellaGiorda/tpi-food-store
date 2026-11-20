@@ -31,13 +31,18 @@ class CategoriaService:
             categoria = uow.categorias.add(Categoria.model_validate(data))
             return CategoriaRead.model_validate(categoria)
 
-    # Se cambian solo los campos que vienen en el cuerpo. Si uno viene en null (ej. la descripción), se borra.
+    # Se cambian solo los campos que vienen en el cuerpo. La descripción se puede borrar mandando null;
+    # en el nombre el null se ignora (si no, la base lo rechaza y la API responde 500)
     def actualizar(self, id: int, data: CategoriaUpdate) -> CategoriaRead:
         with self.uow as uow:
             categoria = self._buscar(uow, id)
-            cambios = data.model_dump(exclude_unset=True)
-            if "nombre" in cambios:
-                existente = uow.categorias.get_by_nombre(cambios["nombre"])
+            cambios = {
+                campo: valor
+                for campo, valor in data.model_dump(exclude_unset=True).items()
+                if valor is not None or campo == "descripcion"
+            }
+            if data.nombre is not None:
+                existente = uow.categorias.get_by_nombre(data.nombre)
                 if existente and existente.id != id:
                     raise NombreDuplicado("Ya existe una categoría con ese nombre")
             categoria.sqlmodel_update(cambios)
