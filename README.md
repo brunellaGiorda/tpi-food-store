@@ -4,6 +4,8 @@ Trabajo Práctico Integrador de Programación IV: sistema de pedidos de comida c
 
 Repositorio: https://github.com/brunellaGiorda/tpi-food-store
 
+Video de demostración: https://drive.google.com/file/d/1Vk2ER3XzWtDzsF-qZpjO1e6wxmf1z7yI/view?usp=sharing
+
 ## Requisitos
 
 - Python 3.11 o superior (se desarrolló con 3.14)
@@ -87,6 +89,7 @@ La aplicación queda en http://localhost:5173. Para verificar los tipos y genera
 - La baja lógica se resuelve en el repositorio base: `delete` pone `activo = False`, y `get_by_id` y `get_all` ignoran los registros dados de baja.
 - En el registro se sacan los espacios al principio y al final de los textos (`str_strip_whitespace`), para que `" maria "` y `"maria"` no cuenten como usuarios distintos.
 - El nombre de una categoría es único sin distinguir mayúsculas: si existe "Bebidas", no se puede crear "bebidas". Los productos no tienen nombre único, porque la consigna no lo pide.
+- En los `PUT` de categorías y productos, mandar `null` en un campo opcional (descripción o imagen) lo borra; en un campo obligatorio (por ejemplo, el precio) el `null` se ignora y el valor queda igual.
 - La búsqueda de productos no distingue mayúsculas, como pide la consigna, pero sí tildes: "milanesa" no encuentra "Milanésa". Para ignorar también las tildes se podría usar la extensión `unaccent` de PostgreSQL.
 
 ### Frontend
@@ -97,3 +100,7 @@ La aplicación queda en http://localhost:5173. Para verificar los tipos y genera
 - El panel de administración tiene un menú propio (`shared/layout/AdminLayout.tsx`) para moverse entre sus cinco pantallas. En la Navbar queda un solo link, "Panel", visible solo para el admin.
 - Las tablas del panel usan un componente común, `shared/components/Tabla.tsx`, que recibe la tabla armada con TanStack Table en cada página.
 - En el ABM de productos el stock y la disponibilidad se cambian con el botón "Stock", que usa `PATCH /productos/{id}/stock`. Al crear un producto se carga el stock inicial; al editarlo, no.
+
+## Mejoras posibles
+
+- Un buscador en las tablas del panel de administración (productos, categorías, usuarios y pedidos), para encontrar más rápido un registro. No se incluyó porque la consigna no lo pide.
